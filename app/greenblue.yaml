@@ -23,7 +23,7 @@ spec:
         ports:
         - containerPort: 8080
   strategy:
-    bluegreen: 
+    blueGreen: 
       # activeService specifies the service to update with the new template hash at time of promotion.
       # This field is mandatory for the greenblue update strategy.
       activeService: rollout-greenblue-active
