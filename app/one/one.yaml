@@ -3,18 +3,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: rollout-bluegreen
+  name: one
   namespace: blue
 spec:
   replicas: 2
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: rollout-bluegreen
+      app: one
   template:
     metadata:
       labels:
-        app: rollout-bluegreen
+        app: one
     spec:
       containers:
       - name: rollouts-demo-rev4
@@ -26,11 +26,11 @@ spec:
     blueGreen: 
       # activeService specifies the service to update with the new template hash at time of promotion.
       # This field is mandatory for the blueGreen update strategy.
-      activeService: rollout-bluegreen-active
+      activeService: one-active
       # previewService specifies the service to update with the new template hash before promotion.
       # This allows the preview stack to be reachable without serving production traffic.
       # This field is optional.
-      previewService: rollout-bluegreen-preview
+      previewService: one-preview
       # autoPromotionEnabled disables automated promotion of the new stack by pausing the rollout
       # immediately before the promotion. If omitted, the default behavior is to promote the new
       # stack as soon as the ReplicaSet are completely ready/available.
@@ -41,11 +41,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: rollout-bluegreen-active
+  name: one-active
   namespace: blue
 spec:
   selector:
-    app: rollout-bluegreen
+    app: one
   ports:
   - protocol: TCP
     port: 80
@@ -55,11 +55,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: rollout-bluegreen-preview
+  name: one-preview
   namespace: blue
 spec:
   selector:
-    app: rollout-bluegreen
+    app: one
   ports:
   - protocol: TCP
     port: 80
